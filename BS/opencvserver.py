@@ -4,7 +4,7 @@ import pickle
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server_ip = "169.254.88.156"
+server_ip = "0.0.0.0"
 server_port = 6666
 s.bind((server_ip, server_port))
 

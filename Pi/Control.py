@@ -8,13 +8,14 @@ import queue
 import socket
 import json
 
+
 ## Following is the controller class responsible for reading joystick data fro the serial bus using pygame.
 class Controller(object):
     STICK_DEADBAND = .05
 
     def __init__(self, axis_map):
         self.joystick = None
-        self.axis_map = axis_map #different controllers have different key maps
+        self.axis_map = axis_map  #different controllers have different key maps
 
     def update(self):
         pygame.event.pump()
@@ -60,7 +61,8 @@ controllers = {
     'Logitech Extreme 3D':
         _GameController((-3, 0, -1, 2), 0),
 
-        #Add your own controller here:
+    'PowerA Spectra Infinity Controller':
+        _GameController((-2, 3, -4, 0), 5),
 }
 
 #______________________________________________________________________________Control-Generator_________________________________________________________________________
@@ -142,7 +144,6 @@ def run(control): #Main Control Thread
         control.control_queue.put((move, turn, depth))
 
         if move & turn == 1500:
-
             pi.set_servo_pulsewidth(control.THRUSTER_1, 1500)   #### This Whole If-Else Statements
             pi.set_servo_pulsewidth(control.THRUSTER_2, 1500)   #### can be replaced by a single
             pi.set_servo_pulsewidth(control.THRUSTER_3, depth)  #### Matrix. Find that matrix, called 
