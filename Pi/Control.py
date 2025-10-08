@@ -39,7 +39,7 @@ class Controller(object):
             val = 0
         return (-1 if j < 0 else +1) * val
 
-#______________________________________________________________________GameController____________________________________________________________
+#___________________________________GameController______________________________
     
 class _GameController(Controller):
 
@@ -64,6 +64,7 @@ controllers = {
     'PowerA Spectra Infinity Controller':
         _GameController((-2, 3, -4, 0), 5),
 }
+
 
 #______________________________________________________________________________Control-Generator_________________________________________________________________________
 class Control(Controller):
