@@ -1,0 +1,8 @@
+# Python packages
+opencv-python>=4.5.0
+numpy>=1.19.0
+Pillow>=8.0.0
+pyzbar>=0.1.8
+
+# System dependency (must be installed separately)
+# sudo apt install libzbar0

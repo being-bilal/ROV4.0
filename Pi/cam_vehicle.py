@@ -6,7 +6,7 @@ import pickle
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000)
 
-server_ip = "169.254.88.156"
+server_ip = ""
 server_port = 6666
 
 cap = cv2.VideoCapture(0)

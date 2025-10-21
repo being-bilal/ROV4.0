@@ -8,77 +8,66 @@ pygame.joystick.init()
 con = pygame.joystick.Joystick(0)
 con.init()
 
-BUTTON_A = 0
-BUTTON_Y = 3
-LEFT_JOYSTICK_Y = 1
-LEFT_JOYSTICK_X = 0
-BUTTON_TOGGLE = 9  # Kill switch button
+# ---- PS4 Controller Mappings ----
+# You can check these using the pygame event debugger if needed.
+BUTTON_CROSS = 0    # Cross (Bottom button)
+BUTTON_CIRCLE = 1   # Circle (Right button)
+BUTTON_TRIANGLE = 2 # Triangle (Top button)
+BUTTON_SQUARE = 3   # Square (Left button)
+BUTTON_OPTIONS = 9  # Options button (used as toggle)
 
-# Thruster pins
+LEFT_JOYSTICK_X = 0  # Left stick horizontal
+LEFT_JOYSTICK_Y = 1  # Left stick vertical
+
+# ---- Thruster setup ----
 thruster_1 = 0  # Center thruster 1
-thruster_2 = 0  # Center Thruster 2
-thruster_3 = 0  # Left Thruster
-thruster_4 = 0  # Right Thruster
+thruster_2 = 0  # Center thruster 2
+thruster_3 = 0  # Left thruster
+thruster_4 = 0  # Right thruster
 thruster_pins = [thruster_1, thruster_2, thruster_3, thruster_4]
 
 '''
 pi = pigpio.pi()
 for pin in thruster_pins:
-    pi.set_servo_pulsewidth(pin, 1500)  # Arming the Thrusters
+    pi.set_servo_pulsewidth(pin, 1500)
 '''
 
 def map_values(value):
-    """Maps joystick value (-1 to 1) to PWM."""
-    if value < -1 or value > 1:
-        return None
-    elif value == 0:
-        return 1500
-    else:
-        return int(1500 + (value * 300))
+    """Maps joystick value (-1 to 1) to PWM pulse width."""
+    return int(1500 + (value * 300)) if abs(value) > 0 else 1500
 
-# Adjustable deadzone
 DEADZONE = 0.2
-
-# Kill switch state
 thrusters_enabled = True
 toggle_last_state = False
 
-print("Controller & thrusters ready.")
+print("PS4 controller & thrusters ready.")
 
 try:
     while True:
         pygame.event.pump()
 
-        # --- Toggle logic ---
-        toggle_pressed = con.get_button(BUTTON_TOGGLE)
-        if toggle_pressed and not toggle_last_state:  # Button just pressed
+        # ---- Toggle kill switch ----
+        toggle_pressed = con.get_button(BUTTON_OPTIONS)
+        if toggle_pressed and not toggle_last_state:
             thrusters_enabled = not thrusters_enabled
             if not thrusters_enabled:
                 print("[KILL SWITCH] Thrusters DISABLED")
-                #pi.set_servo_pulsewidth(thruster_pins[0], 1500)
-                #pi.set_servo_pulsewidth(thruster_pins[1], 1500)
-                #pi.set_servo_pulsewidth(thruster_pins[2], 1500)
-                #pi.set_servo_pulsewidth(thruster_pins[3], 1500)
+                #for pin in thruster_pins:
+                #    pi.set_servo_pulsewidth(pin, 1500)
             else:
                 print("[KILL SWITCH] Thrusters ENABLED")
         toggle_last_state = toggle_pressed
 
-        # If thrusters disabled, skip input processing
         if not thrusters_enabled:
             time.sleep(0.02)
             continue
 
-        # --- Debug buttons ---
-        for i in range(con.get_numbuttons()):
-            if con.get_button(i):
-                print(f"[DEBUG] Button {i} pressed")
-
-        # --- Vertical Movement ---
+        # ---- Vertical control ----
         vertical_direction = "STOP"
-        if con.get_button(BUTTON_Y):
+        if con.get_button(BUTTON_TRIANGLE):
             value = map_values(1)
             vertical_direction = "UP"
-        elif con.get_button(BUTTON_A):
+        elif con.get_button(BUTTON_CROSS):
             value = map_values(-1)
             vertical_direction = "DOWN"
         else:
@@ -87,11 +76,10 @@ try:
         #pi.set_servo_pulsewidth(thruster_pins[0], value)
         #pi.set_servo_pulsewidth(thruster_pins[1], value)
 
-        # --- Horizontal Movement ---
-        forward = -con.get_axis(LEFT_JOYSTICK_Y)  # left stick Y-axis
-        turn = con.get_axis(LEFT_JOYSTICK_X)      # left stick X-axis
+        # ---- Horizontal control (joystick) ----
+        forward = -con.get_axis(LEFT_JOYSTICK_Y)  # invert Y
+        turn = con.get_axis(LEFT_JOYSTICK_X)
 
-        # Apply deadzone
         if abs(forward) < DEADZONE:
             forward = 0
         if abs(turn) < DEADZONE:
@@ -126,7 +114,7 @@ try:
         #pi.set_servo_pulsewidth(thruster_pins[3], pwm_right)
 
         print(f"[MOVEMENT] Vertical: {vertical_direction}, Horizontal: {horizontal_direction}")
-        print(f"[THRUSTER PWM VALUES] Left: {pwm_left}, Right: {pwm_right}, Center: {value}")
+        print(f"[THRUSTER PWM] Left: {pwm_left}, Right: {pwm_right}, Center: {value}")
 
         time.sleep(0.02)
 
