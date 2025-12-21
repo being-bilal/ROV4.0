@@ -36,7 +36,7 @@ class _GameController(Controller):
         super().__init__(axis_map)
         self.button_id = button_id
         self.aux_state = 'OFF'       # Current toggle state
-        self.prev_button = 0         # Previous button reading
+        self.prev_button = 0         # Previous button state
 
     def _getAuxValue(self):
         current_button = self.joystick.get_button(self.button_id)
