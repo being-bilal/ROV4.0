@@ -1,6 +1,6 @@
 # Remotely Operated Underwater Vehicle
-![9401e3b7-abda-4b59-9359-4a82c22e7b2f](https://github.com/MohammadAmmargk8497/ROV1.0/assets/75717701/faa7e680-f711-4787-b866-4df94a74adfb)
-This is the major project of students of ZHCET, AMU under the aegis of MTS AUV ZHCET Club. This repository is an effort to design the first generation of software for Remotely Operated Underwater Vehicle. The software system can be broken down into two major parts; 1). The Vehicle Side and 2). The Base Station Side.
+<img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="/Users/mohammadbilal/Documents/Projects/ROV4.0/Assets/rov.jpeg">
+This repository is an effort to design software for Remotely Operated Underwater Vehicle. The software system can be broken down into two major parts; 1). The Vehicle Side and 2). The Base Station Side.
 
 
 <img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="https://github.com/MohammadAmmargk8497/ROV1.0/assets/75717701/a402932e-34b4-4920-8b0e-1af140b6fd58">
