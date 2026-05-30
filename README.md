@@ -1,5 +1,5 @@
 # Remotely Operated Underwater Vehicle
-<img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="/Users/mohammadbilal/Documents/Projects/ROV4.0/Assets/rov.jpeg">
+<img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="https://github.com/being-bilal/ROV4.0/blob/53173e8b4263fbd03cda9063d62b27a8d954f4c5/Assets/rov.jpeg">
 This repository is an effort to design software for Remotely Operated Underwater Vehicle. The software system can be broken down into two major parts; 1). The Vehicle Side and 2). The Base Station Side.
 
 
