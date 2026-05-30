@@ -2,9 +2,6 @@
 <img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="https://github.com/being-bilal/ROV4.0/blob/53173e8b4263fbd03cda9063d62b27a8d954f4c5/Assets/rov.jpeg">
 This repository is an effort to design software for Remotely Operated Underwater Vehicle. The software system can be broken down into two major parts; 1). The Vehicle Side and 2). The Base Station Side.
 
-
-<img width="264" alt="Screenshot 2024-04-16 at 7 59 18 PM" src="https://github.com/MohammadAmmargk8497/ROV1.0/assets/75717701/a402932e-34b4-4920-8b0e-1af140b6fd58">
-
 1. **The Vehicle Side:**
    The vehicle side of the program is simple, it does two tasks: generate controls for the thrusters and send feedback data ( camera-feed and generated control values) to be displayed back to BS. It contains the following:
    
